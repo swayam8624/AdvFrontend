@@ -1,4 +1,4 @@
-import chefClaudeLogo from "./images/chef-claude-icon.png"
+import chefClaudeLogo from "/Users/swayamsingal/Desktop/Programming/Web dev/AdvFrontend/React/06_chef_claude/src/assets/chef-claude-icon.png"
 
 export default function Header() {
     return (
