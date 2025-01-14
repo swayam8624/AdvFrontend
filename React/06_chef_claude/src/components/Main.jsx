@@ -1,13 +1,12 @@
 import React from "react"
-import ClaudeRecipe from "./Claude_recipe"
-import IngredientsList from "./IngrediantList"
-import {getRecipeFromMistral } from "../ai"
+import ClaudeRecipe from "./ClaudeRecipe"
+import IngredientsList from "./IngredientsList"
+import {getRecipeFromMistral} from "../ai"
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState(
         ["chicken", "all the main spices", "corn", "heavy cream", "pasta"]
     )
-
     const [recipe, setRecipe] = React.useState("")
 
     async function getRecipe() {
@@ -15,21 +14,26 @@ export default function Main() {
         setRecipe(recipeMarkdown)
     }
 
-    function addIngredient(formData) {
-        const newIngredient = formData.get("ingredient")
-        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+    function addIngredient(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const newIngredient = formData.get("ingredient");
+        if (newIngredient) {
+            setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+            event.target.reset();
+        }
     }
 
     return (
         <main>
-            <form action={addIngredient} className="add-ingredient-form">
+            <form onSubmit={addIngredient} className="add-ingredient-form">
                 <input
                     type="text"
                     placeholder="e.g. oregano"
                     aria-label="Add ingredient"
                     name="ingredient"
                 />
-                <button>Add ingredient</button>
+                <button type="submit">Add ingredient</button>
             </form>
 
             {ingredients.length > 0 &&
