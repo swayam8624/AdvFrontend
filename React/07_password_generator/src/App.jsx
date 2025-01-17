@@ -11,22 +11,22 @@ function App() {
   //useRef hook
   const passwordRef = useRef(null)
 
-  const passwordGenerator = useCallback(() => {
+  const passwordGenerator = useCallback(() => { // lets u cache a function while it re renders
     let pass = ""
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     if (numberAllowed) str += "0123456789"
     if (charAllowed) str += "!@#$%^&*-_+=[]{}~`"
 
     for (let i = 1; i <= length; i++) {
-      let char = Math.floor(Math.random() * str.length + 1)
-      pass += str.charAt(char)
+      let charindex = Math.floor(Math.random() * str.length + 1)
+      pass += str.charAt(charindex)
       
     }
 
     setPassword(pass)
 
 
-  }, [length, numberAllowed, charAllowed, setPassword])
+  }, [length, numberAllowed, charAllowed, setPassword]) // function and dependencies are the parameters
 
   const copyPasswordToClipboard = useCallback(() => {
     passwordRef.current?.select();
